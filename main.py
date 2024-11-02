@@ -16,7 +16,7 @@ tab.set.cookies(cookies)
 # print(res.url)  # 打印数据包url
 # print(res)
 
-listen.wait_silent(timeout=60*3)
+tab.listen.wait_silent(timeout=60*3)
 #for res in tab.listen.steps(timeout=60*3):
 for res in tab.listen.steps():
 # res = tab.listen.wait(timeout=60)  # 等待并获取一个数据包
