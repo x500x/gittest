@@ -19,8 +19,8 @@ tab.set.cookies(cookies)
 
 res = tab.listen.wait(timeout=60*3)  # 等待并获取一个数据包
 print(res.url)  # 打印数据包url
-print(res.response)
-print(res)
+print(res.response.body)
+print(res.response.raw_body)
 
 
 # for _ in range(5):
