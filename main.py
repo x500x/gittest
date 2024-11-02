@@ -8,7 +8,7 @@ cookies="PHPSESSID=7lmrlred0bc04kpl21j4r9i8f3; PTCMS_history=21360%2C98080; PTCM
 
 
 # tab.listen.start('m.ting13.cc/api/mapi/play')  # 开始监听，指定获取包含该文本的数据包
-tab.listen.start(('mp3m.ysxs.top/','m.ting13.cc/api/mapi/play))  # 开始监听，指定获取包含该文本的数据包
+tab.listen.start(('mp3m.ysxs.top/','m.ting13.cc/api/mapi/play'))  # 开始监听，指定获取包含该文本的数据包
 tab.get('https://m.ting13.cc/play/21360_1_98080.html')  # 访问网址，这行产生的数据包不监听
 tab.set.cookies(cookies)
 
@@ -17,7 +17,7 @@ tab.set.cookies(cookies)
 # print(res)
 
 
-res = tab.listen.wait()  # 等待并获取一个数据包
+res = tab.listen.wait(timeout=60*3)  # 等待并获取一个数据包
 print(res.url)  # 打印数据包url
 
 
