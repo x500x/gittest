@@ -1,7 +1,7 @@
 #coding=utf-8
 from DrissionPage import Chromium
 import requests
-
+import json
 
 tab = Chromium().latest_tab
 cookies="domain=m.ting13.cc;PHPSESSID=91drha7467okr72hb7jh946bf5; PTCMS_comeurl=%2F; PTCMS_userid=39023; PTCMS_username=1033652712%40qq.com; PTCMS_usernames=%E5%90%AC%E5%8F%8B_28222; PTCMS_token=7e372fc4e01597a6dfc75ffaeba49899; PTCMS_logintime=1730608518"
@@ -37,26 +37,37 @@ for res in tab.listen.steps(timeout=60):
 
     url="https://m.ting13.cc/api/mapi/play"
     
+    rheardes=res.request.headers
+    
     headers = {
       'User-Agent': "Mozilla/5.0 (Linux; Android 13; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Mobile Safari/537.36",
       'Accept': "application/json, text/javascript, */*; q=0.01",
       'Accept-Encoding': "gzip, deflate",
-      'sp': res.request.headers['sp'],
+      'sp': rheardes['sp'],
       'x-requested-with': "XMLHttpRequest",
       'content-type': "application/x-www-form-urlencoded; charset=UTF-8",
-      'sc': res.request.headers['sc'],
-      'origin': res.request.headers['origin'],
+      'sc': rheardes['sc'],
+      'origin': rheardes['origin'],
       'sec-fetch-site': "same-origin",
       'sec-fetch-mode': "cors",
       'sec-fetch-dest': "empty",
-      'referer': res.request.headers['Referer'],
+      'referer': rheardes['Referer'],
       'accept-language': "zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7",
-      'Cookie': res.request.headers['cookie']
+      'Cookie': rheardes['cookie']
     }
     
     response = requests.post(url, params=params, headers=headers)
     
-    print(response.text)
+    jresponse=json.loads(response.text)
+    print(jresponse)
+    with open('C:\\info.txt', 'a') as f:
+        json.dump(jresponse, f)
+        f.write('\n')
+        print(jresponse,file=f)
+    
+    
+    
+    
 # for _ in range(5):
     # tab('@rel=next').click()  # 点击下一页
     # res = tab.listen.wait()  # 等待并获取一个数据包

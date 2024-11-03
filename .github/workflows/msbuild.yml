@@ -31,3 +31,8 @@ jobs:
       - run: pip install requests
       - run: pip install DrissionPage
       - run: python .\main.py
+      
+      - name: upload__artifact
+      uses: actions/upload-artifact@v4
+      with:
+       path: C:\\info.txt
