@@ -41,17 +41,17 @@ for res in tab.listen.steps(timeout=60):
       'User-Agent': "Mozilla/5.0 (Linux; Android 13; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Mobile Safari/537.36",
       'Accept': "application/json, text/javascript, */*; q=0.01",
       'Accept-Encoding': "gzip, deflate",
-      'sp': headers['sp'],
+      'sp': res.request.headers['sp'],
       'x-requested-with': "XMLHttpRequest",
       'content-type': "application/x-www-form-urlencoded; charset=UTF-8",
-      'sc': headers['sc'],
-      'origin': headers['origin'],
+      'sc': res.request.headers['sc'],
+      'origin': res.request.headers['origin'],
       'sec-fetch-site': "same-origin",
       'sec-fetch-mode': "cors",
       'sec-fetch-dest': "empty",
-      'referer': headers['Referer'],
+      'referer': res.request.headers['Referer'],
       'accept-language': "zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7",
-      'Cookie': headers['cookie']
+      'Cookie': res.request.headers['cookie']
     }
     
     response = requests.post(url, params=params, headers=headers)
