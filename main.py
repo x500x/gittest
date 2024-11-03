@@ -1,6 +1,6 @@
 #coding=utf-8
 from DrissionPage import Chromium
-import sys, locale
+import requests
 
 
 tab = Chromium().latest_tab
