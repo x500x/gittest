@@ -2,6 +2,8 @@
 from DrissionPage import Chromium
 import requests
 import json
+import re
+
 
 tab = Chromium().latest_tab
 cookies="domain=m.ting13.cc;PHPSESSID=91drha7467okr72hb7jh946bf5; PTCMS_comeurl=%2F; PTCMS_userid=39023; PTCMS_username=1033652712%40qq.com; PTCMS_usernames=%E5%90%AC%E5%8F%8B_28222; PTCMS_token=7e372fc4e01597a6dfc75ffaeba49899; PTCMS_logintime=1730608518"
@@ -62,10 +64,12 @@ for res in tab.listen.steps(timeout=30):
     with open('C:\\info.txt', 'a',encoding="utf-8") as f:
         json.dump(jresponse, f)
         f.write('\n')
-        f.write(response.text)
-        f.write('\n')
-        json.dump(jresponse['name'].encode('utf-8').decode('utf-8'), f)
-        json.dump(jresponse['url'].encode('utf-8').decode('utf-8'), f)
+        text=re.sub(r"/","",response.text))
+        
+        f.write(text..encode('utf-8').decode("unicode_escape"))
+        # f.write('\n')
+        # json.dump(jresponse['name'].encode('utf-8').decode('utf-8'), f)
+        # json.dump(jresponse['url'].encode('utf-8').decode('utf-8'), f)
         # f.write('\n')
         # print(jresponse,file=f)
     
