@@ -21,7 +21,7 @@ tab.get('https://m.ting13.cc/play/21360_1_98080.html')
 
 # tab.listen.wait_silent(timeout=60*3)
 #for res in tab.listen.steps(timeout=60*3):
-for res in tab.listen.steps(timeout=60):
+for res in tab.listen.steps(timeout=30):
 # res = tab.listen.wait(timeout=60)  # 等待并获取一个数据包
     print(res.url)  # 打印数据包url
     print(res.response.status)
@@ -33,7 +33,6 @@ for res in tab.listen.steps(timeout=60):
     print(res.request.method)
     print(res.request.headers)
     print(res.request.postData)
-    params="nid=21360&cid=98080&sort=read"
 
     url="https://m.ting13.cc/api/mapi/play"
     
@@ -56,14 +55,14 @@ for res in tab.listen.steps(timeout=60):
       'Cookie': rheardes['cookie']
     }
     
-    response = requests.post(url, params=params, headers=headers)
+    response = requests.post(url, params=res.request.postData, headers=headers)
     
     jresponse=json.loads(response.text)
-    print(jresponse)
+    print(response.text)
     with open('C:\\info.txt', 'a') as f:
         json.dump(jresponse, f)
-        f.write('\n')
-        print(jresponse,file=f)
+        # f.write('\n')
+        # print(jresponse,file=f)
     
     
     
