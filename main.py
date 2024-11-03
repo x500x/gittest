@@ -32,6 +32,31 @@ for res in tab.listen.steps(timeout=60):
     print(res.request.url)
     print(res.request.method)
     print(res.request.headers)
+    print(res.request.postData)
+    params="nid=21360&cid=98080&sort=read"
+
+    url="https://m.ting13.cc/api/mapi/play"
+    
+    headers = {
+      'User-Agent': "Mozilla/5.0 (Linux; Android 13; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Mobile Safari/537.36",
+      'Accept': "application/json, text/javascript, */*; q=0.01",
+      'Accept-Encoding': "gzip, deflate",
+      'sp': headers['sp'],
+      'x-requested-with': "XMLHttpRequest",
+      'content-type': "application/x-www-form-urlencoded; charset=UTF-8",
+      'sc': headers['sc'],
+      'origin': headers['origin'],
+      'sec-fetch-site': "same-origin",
+      'sec-fetch-mode': "cors",
+      'sec-fetch-dest': "empty",
+      'referer': headers['Referer'],
+      'accept-language': "zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7",
+      'Cookie': headers['cookie']
+    }
+    
+    response = requests.post(url, params=params, headers=headers)
+    
+    print(response.text)
 # for _ in range(5):
     # tab('@rel=next').click()  # 点击下一页
     # res = tab.listen.wait()  # 等待并获取一个数据包
