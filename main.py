@@ -59,8 +59,13 @@ for res in tab.listen.steps(timeout=30):
     
     jresponse=json.loads(response.text)
     print(response.text)
-    with open('C:\\info.txt', 'a') as f:
+    with open('C:\\info.txt', 'a',encoding="utf-8") as f:
         json.dump(jresponse, f)
+        f.write('\n')
+        f.write(response.text)
+        f.write('\n')
+        json.dump(jresponse['name'].encode('utf-8').decode('utf-8'), f)
+        json.dump(jresponse['url'].encode('utf-8').decode('utf-8'), f)
         # f.write('\n')
         # print(jresponse,file=f)
     
