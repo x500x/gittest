@@ -25,11 +25,13 @@ for res in tab.listen.steps(timeout=60):
 # res = tab.listen.wait(timeout=60)  # 等待并获取一个数据包
     print(res.url)  # 打印数据包url
     print(res.response.status)
-    print(res.response.headers)
+    # print(res.response.headers)
     print(res.response.body)
     print(res.response.raw_body)
     
-
+    print(res.request.url)
+    print(res.request.method)
+    print(res.request.headers)
 # for _ in range(5):
     # tab('@rel=next').click()  # 点击下一页
     # res = tab.listen.wait()  # 等待并获取一个数据包
