@@ -2,7 +2,7 @@
 from DrissionPage import Chromium
 import requests
 import json
-import re
+# import re
 
 
 tab = Chromium().latest_tab
@@ -13,10 +13,13 @@ tab.set.cookies(cookies)
 
 #tab.get('https://m.ting13.cc/play/21360_1_98080.html')  # 访问网址，这行产生的数据包不监听
 
+cid=98081
+
 
 
 tab.listen.start('m.ting13.cc/api/mapi/play')  # 开始监听，指定获取包含该文本的数据包
-tab.get('https://m.ting13.cc/play/21360_1_98080.html')
+tab.get(f"https://m.ting13.cc/play/21360_1_{cid}.html")
+cid+=1
 # res = tab.listen.wait()  # 等待并获取一个数据包
 # print(res.url)  # 打印数据包url
 # print(res)
@@ -24,18 +27,21 @@ tab.get('https://m.ting13.cc/play/21360_1_98080.html')
 # tab.listen.wait_silent(timeout=60*3)
 #for res in tab.listen.steps(timeout=60*3):
 for res in tab.listen.steps(timeout=30):
+    if cid>98091
+    tab.get(f"https://m.ting13.cc/play/21360_1_{cid}.html")
+    cid+=1
 # res = tab.listen.wait(timeout=60)  # 等待并获取一个数据包
     print(res.url)  # 打印数据包url
     print(res.response.status)
     # print(res.response.headers)
-    print(res.response.body)
-    print(res.response.raw_body)
+    # print(res.response.body)
+    # print(res.response.raw_body)
     
-    print(res.request.url)
+    # print(res.request.url)
     print(res.request.method)
-    print(res.request.headers)
+    # print(res.request.headers)
     print(res.request.postData)
-
+    
     url="https://m.ting13.cc/api/mapi/play"
     
     rheardes=res.request.headers
@@ -60,19 +66,14 @@ for res in tab.listen.steps(timeout=30):
     response = requests.post(url, params=res.request.postData, headers=headers)
     
     jresponse=json.loads(response.text)
-    print(response.text)
+    print(response.text.decode("unicode_escape").replace("\\",""))
     # with open('C:\\info.txt', 'a',encoding="utf-8") as f:
-    with open('C:\\info.txt', 'ab') as f:
-        f.write(response.text.encode('unicode_escape'))#unicode_escape
+    
     with open('C:\\info.txt', 'a',encoding="utf-8") as f:
+        f.write(jresponse['name'].encode('utf-8').decode("unicode_escape").replace("\\",""))
         f.write('\n')
-        f.write(response.text.encode('unicode_escape').decode("unicode_escape"))
+        f.write(jresponse['url'].encode('utf-8').decode("unicode_escape").replace("\\",""))
         f.write('\n')
-        f.write('\n')
-        f.write(response.text.encode('utf-8').decode("unicode_escape"))
-        f.write('\n')
-        f.write(response.text.encode('utf-8').decode("unicode_escape").replace("\\",""))
-        # f.write('\n')
         # f.write('\n')
         # f.write(response.text.encode('utf-8').decode("unicode_escape").replace("\\",""))
             # json.dump(jresponse, f)
