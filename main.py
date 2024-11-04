@@ -6,7 +6,7 @@ import re
 
 
 tab = Chromium().latest_tab
-cookies="domain=m.ting13.cc;PHPSESSID=91drha7467okr72hb7jh946bf5; PTCMS_comeurl=%2F; PTCMS_userid=39023; PTCMS_username=1033652712%40qq.com; PTCMS_usernames=%E5%90%AC%E5%8F%8B_28222; PTCMS_token=7e372fc4e01597a6dfc75ffaeba49899; PTCMS_logintime=1730608518"
+cookies="domain=m.ting13.cc;PHPSESSID=91drha7467okr72hb7jh946bf5; PTCMS_history=19170%2C95267"
 
 tab.set.cookies(cookies)
 # tab.listen.start('m.ting13.cc/api/mapi/play')  # 开始监听，指定获取包含该文本的数据包
@@ -63,8 +63,17 @@ for res in tab.listen.steps(timeout=30):
     print(response.text)
     # with open('C:\\info.txt', 'a',encoding="utf-8") as f:
     with open('C:\\info.txt', 'ab') as f:
-        f.write(response.text.encode('unicode_escape'))
-        # json.dump(jresponse, f)
+        f.write(response.text.encode('uft-8'))#unicode_escape
+    with open('C:\\info.txt', 'a',encoding="utf-8") as f:
+        f.write('\n')
+        f.write(response.text.encode('unicode_escape').decode("unicode_escape").replace("\\",""))
+        f.write('\n')
+        f.write('\n')
+        f.write(response.text.encode('unicode_escape').decode("utf-8").replace("\\",""))
+        f.write('\n')
+        f.write('\n')
+        f.write(response.text.encode('utf-8').decode("unicode_escape").replace("\\",""))
+            # json.dump(jresponse, f)
         # f.write('\n')
         # text=re.sub(r"/","",response.text.encode('unicode_escape').decode("unicode_escape"))
         
