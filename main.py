@@ -61,12 +61,14 @@ for res in tab.listen.steps(timeout=30):
     
     jresponse=json.loads(response.text)
     print(response.text)
-    with open('C:\\info.txt', 'a',encoding="utf-8") as f:
-        json.dump(jresponse, f)
-        f.write('\n')
-        text=re.sub(r"/","",response.text)
+    # with open('C:\\info.txt', 'a',encoding="utf-8") as f:
+    with open('C:\\info.txt', 'ab') as f:
+        f.write(response.text.encode('unicode_escape'))
+        # json.dump(jresponse, f)
+        # f.write('\n')
+        # text=re.sub(r"/","",response.text.encode('unicode_escape').decode("unicode_escape"))
         
-        f.write(text.encode('utf-8').decode("unicode_escape"))
+        # f.write(text)
         # f.write('\n')
         # json.dump(jresponse['name'].encode('utf-8').decode('utf-8'), f)
         # json.dump(jresponse['url'].encode('utf-8').decode('utf-8'), f)
