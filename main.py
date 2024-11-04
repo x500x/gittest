@@ -66,10 +66,12 @@ for res in tab.listen.steps(timeout=30):
         f.write(response.text.encode('unicode_escape'))#unicode_escape
     with open('C:\\info.txt', 'a',encoding="utf-8") as f:
         f.write('\n')
-        f.write(response.text.encode('unicode_escape').decode("unicode_escape").replace("\\",""))
+        f.write(response.text.encode('unicode_escape').decode("unicode_escape"))
         f.write('\n')
         f.write('\n')
-        f.write(response.text.encode('unicode_escape').decode("utf-8").replace("\\",""))
+        f.write(response.text.encode('utf-8').decode("unicode_escape"))
+        f.write('\n')
+        f.write(response.text.encode('utf-8').decode("unicode_escape").replace("\\",""))
         # f.write('\n')
         # f.write('\n')
         # f.write(response.text.encode('utf-8').decode("unicode_escape").replace("\\",""))
