@@ -83,9 +83,11 @@ for packet in tab.listen.steps(timeout=30):
     while jresponse['status']==300:
         time.sleep(1)
         response = requests.post(url, params=packet.request.postData, headers=headers)
+        print("********************************")
+        print(response.text)
         res=response.text.encode('utf-8').decode("unicode_escape").replace("\\","")
         jresponse=json.loads(res)
-        i+=i
+        i+=1
         if i>10:
             print("i>10,exiting");
             sys.exit()
