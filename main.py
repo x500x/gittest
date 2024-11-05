@@ -4,7 +4,10 @@ import requests
 import json
 import time
 import sys
+import threading
 # import re
+
+
 
 def GetUrl(packet):
     print(packet.url)  # 打印数据包url
@@ -43,6 +46,22 @@ def GetUrl(packet):
     print(response.text)
     return response
 
+flag=-1
+cid=98085
+i=0
+
+def NextWebPage():
+    global cid
+    tab.get(f"https://m.ting13.cc/play/21360_1_{cid}.html")
+    cid+=1
+    if cid<=98091: 
+        t1 = threading.Timer(5,NextWebPage)
+         # 启动线程
+        t1.start()
+    else:
+        global flag
+        flag=1
+    
 tab = Chromium().latest_tab
 cookies="domain=m.ting13.cc;PHPSESSID=91drha7467okr72hb7jh946bf5; PTCMS_history=19170%2C95267%7C21360%2C98080; PTCMS_comeurl=%2F; PTCMS_userid=39023; PTCMS_username=1033652712%40qq.com; PTCMS_usernames=%E5%90%AC%E5%8F%8B_28222; PTCMS_token=6690e87104404eb5c923c6a3e50947a6; PTCMS_logintime=1730780762"
 
@@ -51,17 +70,16 @@ tab.set.cookies(cookies)
 
 #tab.get('https://m.ting13.cc/play/21360_1_98080.html')  # 访问网址，这行产生的数据包不监听
 
-cid=98085
 
-i=0
 
 
 # Time=time.time()
 # flag=-1
 
 tab.listen.start('m.ting13.cc/api/mapi/play')  # 开始监听，指定获取包含该文本的数据包
-tab.get(f"https://m.ting13.cc/play/21360_1_{cid}.html")
-cid+=1
+NextWebPage()
+# tab.get(f"https://m.ting13.cc/play/21360_1_{cid}.html")
+# cid+=1
 # res = tab.listen.wait()  # 等待并获取一个数据包
 # print(res.url)  # 打印数据包url
 # print(res)
@@ -69,7 +87,7 @@ cid+=1
 # tab.listen.wait_silent(timeout=60*3)
 #for res in tab.listen.steps(timeout=60*3):
 for packet in tab.listen.steps(timeout=30):
-    if cid>98091: break
+    
     
     # while time.time()-Time>=5:
         # Time=time.time()
@@ -113,9 +131,9 @@ for packet in tab.listen.steps(timeout=30):
         f.write('\n')
         f.write(jresponse['url'])
         f.write('\n')
-    
-    tab.get(f"https://m.ting13.cc/play/21360_1_{cid}.html")
-    cid+=1
+    if tab.listen.wait(timeout=0)==False and flag>0: break
+    # tab.get(f"https://m.ting13.cc/play/21360_1_{cid}.html")
+    # cid+=1
             # f.write('\n')
         # f.write(response.text.encode('utf-8').decode("unicode_escape").replace("\\",""))
             # json.dump(jresponse, f)
