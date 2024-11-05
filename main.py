@@ -81,7 +81,7 @@ for packet in tab.listen.steps(timeout=30):
     res=response.text.encode('utf-8').decode("unicode_escape").replace("\\","")
     jresponse=json.loads(res)
     while jresponse['status']==300:
-        time.sleep(30)
+        time.sleep(60)
         response = requests.post(url, params=packet.request.postData, headers=headers)
         print("********************************")
         print(response.text)
@@ -98,7 +98,7 @@ for packet in tab.listen.steps(timeout=30):
         # f.write('\n')
         # f.write(jresponse['url'].encode('utf-8').decode("unicode_escape").replace("\\",""))
         # f.write('\n')
-        f.write(jresponse['name'])
+        f.write(jresponse['name']+".m4a")
         f.write('\n')
         f.write(jresponse['url'])
         f.write('\n')
