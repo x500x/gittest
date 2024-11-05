@@ -84,6 +84,7 @@ for packet in tab.listen.steps(timeout=30):
         time.sleep(60)
         response = requests.post(url, params=packet.request.postData, headers=headers)
         print("********************************")
+        print(time.time())
         print(response.text)
         res=response.text.encode('utf-8').decode("unicode_escape").replace("\\","")
         jresponse=json.loads(res)
