@@ -81,15 +81,15 @@ for packet in tab.listen.steps(timeout=30):
     res=response.text.encode('utf-8').decode("unicode_escape").replace("\\","")
     jresponse=json.loads(res)
     while jresponse['status']==300:
-        time.sleep(1)
+        time.sleep(10)
         response = requests.post(url, params=packet.request.postData, headers=headers)
         print("********************************")
         print(response.text)
         res=response.text.encode('utf-8').decode("unicode_escape").replace("\\","")
         jresponse=json.loads(res)
         i+=1
-        if i>10:
-            print("i>10,exiting");
+        if i>2:
+            print("i>2,exiting");
             sys.exit()
     # with open('C:\\info.txt', 'a',encoding="utf-8") as f:
     i=0
