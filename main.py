@@ -64,9 +64,12 @@ for res in tab.listen.steps(timeout=30):
     }
     
     response = requests.post(url, params=res.request.postData, headers=headers)
+    
+    print(response.text)
+    
     res=response.text.encode('utf-8').decode("unicode_escape").replace("\\","")
     jresponse=json.loads(res)
-    print(res)
+    
     # with open('C:\\info.txt', 'a',encoding="utf-8") as f:
     
     with open('C:\\info.txt', 'a',encoding="utf-8") as f:
