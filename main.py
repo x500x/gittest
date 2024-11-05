@@ -2,11 +2,12 @@
 from DrissionPage import Chromium
 import requests
 import json
+import time
 # import re
 
 
 tab = Chromium().latest_tab
-cookies="domain=m.ting13.cc;PHPSESSID=91drha7467okr72hb7jh946bf5; PTCMS_history=19170%2C95267%7C21360%2C98080; PTCMS_comeurl=%2F; PTCMS_userid=39023; PTCMS_username=1033652712%40qq.com; PTCMS_usernames=%E5%90%AC%E5%8F%8B_28222; PTCMS_token=6690e87104404eb5c923c6a3e50947a6; PTCMS_logintime=1730779880"
+cookies="domain=m.ting13.cc;PHPSESSID=91drha7467okr72hb7jh946bf5; PTCMS_history=19170%2C95267%7C21360%2C98080; PTCMS_comeurl=%2F; PTCMS_userid=39023; PTCMS_username=1033652712%40qq.com; PTCMS_usernames=%E5%90%AC%E5%8F%8B_28222; PTCMS_token=6690e87104404eb5c923c6a3e50947a6; PTCMS_logintime=1730780762"
 
 tab.set.cookies(cookies)
 # tab.listen.start('m.ting13.cc/api/mapi/play')  # 开始监听，指定获取包含该文本的数据包
@@ -15,7 +16,8 @@ tab.set.cookies(cookies)
 
 cid=98081
 
-
+Time=time.time()
+flag=-1
 
 tab.listen.start('m.ting13.cc/api/mapi/play')  # 开始监听，指定获取包含该文本的数据包
 tab.get(f"https://m.ting13.cc/play/21360_1_{cid}.html")
@@ -28,8 +30,13 @@ cid+=1
 #for res in tab.listen.steps(timeout=60*3):
 for res in tab.listen.steps(timeout=30):
     if cid>98091: break
-    tab.get(f"https://m.ting13.cc/play/21360_1_{cid}.html")
-    cid+=1
+    while time.time()-Time>=5:
+        Time=time.time()
+        tab.get(f"https://m.ting13.cc/play/21360_1_{cid}.html")
+        cid+=1
+        flag=-1
+    else:
+        flag=1
 # res = tab.listen.wait(timeout=60)  # 等待并获取一个数据包
     print(res.url)  # 打印数据包url
     print(res.response.status)
@@ -86,13 +93,20 @@ for res in tab.listen.steps(timeout=30):
             # json.dump(jresponse, f)
         # f.write('\n')
         # text=re.sub(r"/","",response.text.encode('unicode_escape').decode("unicode_escape"))
-        
+    if flag>0:
+        flag=-flag
+        while time.time()-Time<5: pass
+        Time=time.time()
+        tab.get(f"https://m.ting13.cc/play/21360_1_{cid}.html")
+        cid+=1
+            
         # f.write(text)
         # f.write('\n')
         # json.dump(jresponse['name'].encode('utf-8').decode('utf-8'), f)
         # json.dump(jresponse['url'].encode('utf-8').decode('utf-8'), f)
         # f.write('\n')
         # print(jresponse,file=f)
+    
     
     
     
