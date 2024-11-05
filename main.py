@@ -6,7 +6,7 @@ import json
 
 
 tab = Chromium().latest_tab
-cookies="domain=m.ting13.cc;PHPSESSID=91drha7467okr72hb7jh946bf5; PTCMS_history=19170%2C95267%7C21360%2C98080; PTCMS_comeurl=%2F; PTCMS_userid=39023; PTCMS_username=1033652712%40qq.com; PTCMS_usernames=%E5%90%AC%E5%8F%8B_28222; PTCMS_token=834630663b38fc2c654a9031dc6fdf7f; PTCMS_logintime=1730695002"
+cookies="domain=m.ting13.cc;PHPSESSID=91drha7467okr72hb7jh946bf5; PTCMS_history=19170%2C95267%7C21360%2C98080; PTCMS_comeurl=%2F; PTCMS_userid=39023; PTCMS_username=1033652712%40qq.com; PTCMS_usernames=%E5%90%AC%E5%8F%8B_28222; PTCMS_token=6690e87104404eb5c923c6a3e50947a6; PTCMS_logintime=1730779880"
 
 tab.set.cookies(cookies)
 # tab.listen.start('m.ting13.cc/api/mapi/play')  # 开始监听，指定获取包含该文本的数据包
@@ -27,7 +27,7 @@ cid+=1
 # tab.listen.wait_silent(timeout=60*3)
 #for res in tab.listen.steps(timeout=60*3):
 for res in tab.listen.steps(timeout=30):
-    if cid>98091
+    if cid>98091: break
     tab.get(f"https://m.ting13.cc/play/21360_1_{cid}.html")
     cid+=1
 # res = tab.listen.wait(timeout=60)  # 等待并获取一个数据包
@@ -64,15 +64,19 @@ for res in tab.listen.steps(timeout=30):
     }
     
     response = requests.post(url, params=res.request.postData, headers=headers)
-    
-    jresponse=json.loads(response.text)
-    print(response.text.decode("unicode_escape").replace("\\",""))
+    res=response.text.encode('utf-8').decode("unicode_escape").replace("\\","")
+    jresponse=json.loads(res)
+    print(res)
     # with open('C:\\info.txt', 'a',encoding="utf-8") as f:
     
     with open('C:\\info.txt', 'a',encoding="utf-8") as f:
-        f.write(jresponse['name'].encode('utf-8').decode("unicode_escape").replace("\\",""))
+        # f.write(jresponse['name'].encode('utf-8').decode("unicode_escape").replace("\\",""))
+        # f.write('\n')
+        # f.write(jresponse['url'].encode('utf-8').decode("unicode_escape").replace("\\",""))
+        # f.write('\n')
+        f.write(jresponse['name'])
         f.write('\n')
-        f.write(jresponse['url'].encode('utf-8').decode("unicode_escape").replace("\\",""))
+        f.write(jresponse['url'])
         f.write('\n')
         # f.write('\n')
         # f.write(response.text.encode('utf-8').decode("unicode_escape").replace("\\",""))
