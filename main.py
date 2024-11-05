@@ -30,7 +30,7 @@ cid+=1
 
 # tab.listen.wait_silent(timeout=60*3)
 #for res in tab.listen.steps(timeout=60*3):
-for res in tab.listen.steps(timeout=30):
+for packet in tab.listen.steps(timeout=30):
     if cid>98091: break
     tab.get(f"https://m.ting13.cc/play/21360_1_{cid}.html")
     cid+=1
@@ -42,20 +42,20 @@ for res in tab.listen.steps(timeout=30):
     # else:
         # flag=1
 # res = tab.listen.wait(timeout=60)  # 等待并获取一个数据包
-    print(res.url)  # 打印数据包url
-    print(res.response.status)
+    print(packet.url)  # 打印数据包url
+    print(packet.response.status)
     # print(res.response.headers)
     # print(res.response.body)
     # print(res.response.raw_body)
     
     # print(res.request.url)
-    print(res.request.method)
+    print(packet.request.method)
     # print(res.request.headers)
-    print(res.request.postData)
+    print(packet.request.postData)
     
     url="https://m.ting13.cc/api/mapi/play"
     
-    rheardes=res.request.headers
+    rheardes=packet.request.headers
     
     headers = {
       'User-Agent': "Mozilla/5.0 (Linux; Android 13; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Mobile Safari/537.36",
@@ -74,7 +74,7 @@ for res in tab.listen.steps(timeout=30):
       'Cookie': rheardes['cookie']
     }
     
-    response = requests.post(url, params=res.request.postData, headers=headers)
+    response = requests.post(url, params=packet.request.postData, headers=headers)
     
     print(response.text)
     
@@ -82,7 +82,7 @@ for res in tab.listen.steps(timeout=30):
     jresponse=json.loads(res)
     while jresponse['status']==300:
         time.sleep(1)
-        response = requests.post(url, params=res.request.postData, headers=headers)
+        response = requests.post(url, params=packet.request.postData, headers=headers)
         res=response.text.encode('utf-8').decode("unicode_escape").replace("\\","")
         jresponse=json.loads(res)
         i+=i
