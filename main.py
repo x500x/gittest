@@ -3,6 +3,7 @@ from DrissionPage import Chromium
 import requests
 import json
 import time
+import sys
 # import re
 
 
@@ -16,8 +17,9 @@ tab.set.cookies(cookies)
 
 cid=98081
 
-Time=time.time()
-flag=-1
+i=0
+# Time=time.time()
+# flag=-1
 
 tab.listen.start('m.ting13.cc/api/mapi/play')  # 开始监听，指定获取包含该文本的数据包
 tab.get(f"https://m.ting13.cc/play/21360_1_{cid}.html")
@@ -30,13 +32,15 @@ cid+=1
 #for res in tab.listen.steps(timeout=60*3):
 for res in tab.listen.steps(timeout=30):
     if cid>98091: break
-    while time.time()-Time>=5:
-        Time=time.time()
-        tab.get(f"https://m.ting13.cc/play/21360_1_{cid}.html")
-        cid+=1
-        flag=-1
-    else:
-        flag=1
+    tab.get(f"https://m.ting13.cc/play/21360_1_{cid}.html")
+    cid+=1
+    # while time.time()-Time>=5:
+        # Time=time.time()
+        # tab.get(f"https://m.ting13.cc/play/21360_1_{cid}.html")
+        # cid+=1
+        # flag=-1
+    # else:
+        # flag=1
 # res = tab.listen.wait(timeout=60)  # 等待并获取一个数据包
     print(res.url)  # 打印数据包url
     print(res.response.status)
@@ -76,9 +80,17 @@ for res in tab.listen.steps(timeout=30):
     
     res=response.text.encode('utf-8').decode("unicode_escape").replace("\\","")
     jresponse=json.loads(res)
-    
+    while jresponse['status']==300:
+        time.sleep(1)
+        response = requests.post(url, params=res.request.postData, headers=headers)
+        res=response.text.encode('utf-8').decode("unicode_escape").replace("\\","")
+        jresponse=json.loads(res)
+        i+=i
+        if i>10:
+            print("i>10,exiting");
+            sys.exit()
     # with open('C:\\info.txt', 'a',encoding="utf-8") as f:
-    
+    i=0
     with open('C:\\info.txt', 'a',encoding="utf-8") as f:
         # f.write(jresponse['name'].encode('utf-8').decode("unicode_escape").replace("\\",""))
         # f.write('\n')
@@ -93,12 +105,12 @@ for res in tab.listen.steps(timeout=30):
             # json.dump(jresponse, f)
         # f.write('\n')
         # text=re.sub(r"/","",response.text.encode('unicode_escape').decode("unicode_escape"))
-    if flag>0:
-        flag=-flag
-        while time.time()-Time<5: pass
-        Time=time.time()
-        tab.get(f"https://m.ting13.cc/play/21360_1_{cid}.html")
-        cid+=1
+    # if flag>0:
+        # flag=-flag
+        # while time.time()-Time<5: pass
+        # Time=time.time()
+        # tab.get(f"https://m.ting13.cc/play/21360_1_{cid}.html")
+        # cid+=1
             
         # f.write(text)
         # f.write('\n')
