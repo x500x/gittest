@@ -51,7 +51,7 @@ tab.set.cookies(cookies)
 
 #tab.get('https://m.ting13.cc/play/21360_1_98080.html')  # 访问网址，这行产生的数据包不监听
 
-cid=98083
+cid=98085
 
 i=0
 
@@ -70,8 +70,7 @@ cid+=1
 #for res in tab.listen.steps(timeout=60*3):
 for packet in tab.listen.steps(timeout=30):
     if cid>98091: break
-    tab.get(f"https://m.ting13.cc/play/21360_1_{cid}.html")
-    cid+=1
+    
     # while time.time()-Time>=5:
         # Time=time.time()
         # tab.get(f"https://m.ting13.cc/play/21360_1_{cid}.html")
@@ -114,7 +113,10 @@ for packet in tab.listen.steps(timeout=30):
         f.write('\n')
         f.write(jresponse['url'])
         f.write('\n')
-        # f.write('\n')
+    
+    tab.get(f"https://m.ting13.cc/play/21360_1_{cid}.html")
+    cid+=1
+            # f.write('\n')
         # f.write(response.text.encode('utf-8').decode("unicode_escape").replace("\\",""))
             # json.dump(jresponse, f)
         # f.write('\n')
