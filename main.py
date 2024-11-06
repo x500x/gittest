@@ -7,7 +7,8 @@ import sys
 # import threading
 # import re
 
-
+start_cid=98092
+num_cid=9
 
 def GetUrl(packet):
     print(packet.url)  # 打印数据包url
@@ -47,7 +48,7 @@ def GetUrl(packet):
     return response
 
 # flag=-1
-cid=98086
+cid=start_cid
 i=0
 
 # def NextWebPage():
@@ -104,7 +105,7 @@ for packet in tab.listen.steps(timeout=60):
     res=response.text.encode('utf-8').decode("unicode_escape").replace("\\","")
     jresponse=json.loads(res)
     while jresponse['status']==300:#to do
-        time.sleep(30)
+        time.sleep(20)
         tab.get(f"https://m.ting13.cc/play/21360_1_{cid}.html")
         cid+=1
         Time=time.time()
@@ -134,7 +135,7 @@ for packet in tab.listen.steps(timeout=60):
         f.write(jresponse['url'])
         f.write('\n')
     
-    if cid>98091: break
+    if cid>=start_cid+num_cid: break
     if time.time()-Time<20:
         time.sleep(20-(time.time()-Time))
     tab.get(f"https://m.ting13.cc/play/21360_1_{cid}.html")
