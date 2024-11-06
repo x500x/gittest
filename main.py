@@ -134,8 +134,9 @@ for packet in tab.listen.steps(timeout=60):
         f.write(jresponse['url'])
         f.write('\n')
     
-    if time.time()-Time<30:
-        time.sleep(30-(time.time()-Time))
+    if cid>98091: break
+    if time.time()-Time<20:
+        time.sleep(20-(time.time()-Time))
     tab.get(f"https://m.ting13.cc/play/21360_1_{cid}.html")
     cid+=1
     Time=time.time()
